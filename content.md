@@ -87,13 +87,23 @@ auc=0.98742963525
 RandomForestClassifier
 
  
- * aoc曲线
- 
+ * roc曲线
+
+![roc_pr](./pic/rf_roc)
+
+auc=0.99605060404 
+
  *  pr曲线 
- 
+
+ ![rf_pr](./pic/rf_pr)
+
+
+auc=0.986248939905
+
  * 测试集合
  
 ##模型应用
+ 
  *  snort
 
 目录 | 简介 |
