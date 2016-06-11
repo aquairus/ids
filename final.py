@@ -36,6 +36,8 @@ for i in select_feature:
 
 for i in select_feature:
     washed_df[i]=df[i].map(vectorize_map[i])
+washed_df
+
 
 train_data = washed_df.values
 
@@ -48,3 +50,33 @@ logr=log_r.fit(train_data[0::,1::],train_data[0::,0] )
 
 y_true = train_data[0::,0]
 print logr.score(train_data[0::,1::],y_true)
+
+
+
+from sklearn.ensemble import RandomForestClassifier
+forest = RandomForestClassifier(n_estimators=10)
+train_data = washed_df.values
+forest = forest.fit(train_data[0::,1::],train_data[0::,0] )
+
+from sklearn import cross_validation
+forest_scores = cross_validation.cross_val_score(forest,train_data[0::,1::], train_data[0::,0],cv=5)
+print forest_scores.mean()
+
+
+
+from sklearn import metrics
+from sklearn.metrics import precision_recall_curve
+y_true = train_data[0::,0]
+y_scores = forest.predict_proba(train_data[0::,1::])
+
+precision, recall, thresholds = precision_recall_curve(y_true, y_scores[0::,1])
+
+
+plt.plot( recall,precision)
+print metrics.auc(recall,precision)
+
+
+fpr, tpr, thresholds = metrics.roc_curve(y_true, y_scores[0::,1])
+plt.plot( fpr, tpr)
+print metrics.auc(fpr, tpr)
+print forest.score(train_data[0::,::-1],y_true)
