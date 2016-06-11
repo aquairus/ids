@@ -36,5 +36,5 @@ log_cv=LogisticRegressionCV()
 
 logr=log_cv.fit(train_data[0::,1::],train_data[0::,0] )
 
-
+y_true = train_data[0::,0]
 print logr.score(train_data[0::,1::],y_true)
